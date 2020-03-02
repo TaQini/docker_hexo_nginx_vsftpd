@@ -1,0 +1,35 @@
+version: '3'
+services:
+  nginx:
+    image: "nginx"
+    volumes:
+      - ./public:/usr/share/nginx/html
+    ports:
+    - "8080:80"
+  hexo:
+    build: .
+    user: root
+    volumes:
+      - ./:/opt/hexo/blog
+    command: 
+      - /bin/bash
+      - -c
+      - |
+        cp -r ../bak/* ./
+        rm -rf ../bak/* 
+        hexo g -w -f
+  vsftpd:
+    image: "fauria/vsftpd"
+    volumes:
+      - ./source/_posts:/home/vsftpd/blog/blog
+    ports:
+    - "20:20"
+    - "21:21"
+    - "21100-21110:21100-21110"
+    environment:
+    - FTP_USER=blog
+    - FTP_PASS=myb1og
+    - PASV_ADDRESS=127.0.0.1
+    - PASV_MIN_PORT=21100
+    - PASV_MAX_PORT=21110
+
