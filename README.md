@@ -47,7 +47,7 @@ sudo docker-compose up -d
 
 安装成功后，访问[http://your.site:8080](http://your.site:8080)即可浏览网页
 
-![]()
+![hexo_default](https://cdn.jsdelivr.net/gh/TaQini/CDN@master/img/20200302203400.png)
 
 ## 配置
 
@@ -149,10 +149,66 @@ Hello world
 
 编写的文章最好保存在本地的一个文件夹中，这样便于后续的[文章发布](#发布文章)
 
+使用typora在本地写文章时，可以直接预览，十分方便
+
+![md](https://cdn.jsdelivr.net/gh/TaQini/CDN@master/img/20200302204055.png)
+
 ## 发布文章
 
 使用先前设置的用户名和密码连接FTP服务器
 
 > 建议使用FTP客户端，比如FileZilla [下载地址](https://filezilla-project.org/download.php?type=client)
 
+把本地的文章上传到ftp服务器的`/blog`文件中
+
+![ftp](https://cdn.jsdelivr.net/gh/TaQini/CDN@master/img/20200302203614.png)
+
+上传成功后，再次访问[http://your.site:8080](http://your.site:8080)即可看到刚刚发布的文章
+
+![new_post](https://cdn.jsdelivr.net/gh/TaQini/CDN@master/img/20200302203917.png)
+
+
+
+## 其他
+
+### 重启服务
+
+```shell
+sudo docker-compose restart
+```
+
+### 关闭服务
+
+```shell
+sudo docker-compose kill
+```
+
+### 开启服务
+
+```shell
+sudo docker-compose start
+```
+
+### 更新
+
+关闭服务
+
+```shell
+sudo docker-compose kill
+sudo docker-compose rm -f
+```
+
+更新基础镜像
+
+```shell
+sudo docker pull nginx                   
+sudo docker pull node 
+sudo docker pull fauria/vsftpd
+```
+
+重新安装
+
+```shell
+sudo docker-compose up -d
+```
 
